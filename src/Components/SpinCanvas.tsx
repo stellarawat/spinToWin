@@ -122,7 +122,7 @@ const SpinCanvas: FC<SpinCanvasProps> = ({numSegments, riskLevel, spinState, win
                 style={{
                     position: 'absolute',
                     top: 0,
-                    left: 0,
+                    left:63,
                     pointerEvents: 'none',
                 }}
             />
@@ -132,7 +132,7 @@ const SpinCanvas: FC<SpinCanvasProps> = ({numSegments, riskLevel, spinState, win
                 style={{
                     position: 'absolute',
                     top: 0,
-                    left: 0,
+                    left: 63,
                     pointerEvents: 'none',
                 }}
             />
