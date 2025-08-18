@@ -5,7 +5,7 @@ const useImageData = (riskLevel: string, numSegments: number) => {
     const [wheelData, setWheelData] = useState<{ id: number; color: string;  multiplier: number | null; }[]>([]);
 
     useEffect(() => {
-        const adjustedColorOccurrences: ColorOccurrence[] = getAdjustedColorOccurrences(riskLevel, numSegments);
+        const adjustedColorOccurrences: ColorOccurrence[] = getAdjustedColorOccurrences(riskLevel);
 
         const segments = adjustedColorOccurrences.flatMap(({ color, positions, multiplier }) =>
             positions.map((id) => ({ id, color, multiplier }))

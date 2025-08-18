@@ -4,18 +4,80 @@
     background-color: #1A2C38;
     font-family: "proxima-nova", sans-serif;
     height: 100vh;
+    width: 100%;
 }
 
-/*main spin container*/
+.main-spin-2-win-cont{
+    display: flex;
+    flex-direction: column;
+}
+
 .spin-container {
-    display: grid;
-    grid-template-columns: 1fr;
+   display: flex;
+    flex-direction: column;
+    border: 1px solid #efbf00;
+}
+
+.spin-container-canvas{
+    display: flex;
+    flex-direction: column;
+    background-color: #0F212E;
+}
+
+.spin-classic-header{
+    display: flex;
+    flex-direction: row;
     align-items: center;
-    padding: 2px
+    justify-content: space-between;
+    width: 100%;
+}
+
+.header-logo{
+    width: auto;
+    height: 40px;
+}
+
+.header-icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+}
+
+.user-balance{
+    border-radius: 8px;
+    color: white;
+    /*padding: 6px;*/
+    max-width: 80px;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 800;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.help-classic {
+    width: 26px;
+
+}
+
+.menu-content-container-overlay{
+    position: absolute;
+    top:3%;
+    background: transparent;
+    color: white;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    transform: none;
+    padding: 0;
+    z-index: 1;
+    gap:5px;
+
+
 }
 
 .main-spi-content-2 {
-    grid-row: 2;
     background-color: rgb(31, 53, 68);
 }
 
@@ -269,11 +331,16 @@
 
 .spin-canvas {
     display: flex;
-    align-items: center;
-    justify-content: center;
+    /*align-items: center;*/
+    /*justify-content: center;*/
     flex-direction: column;
+    position: relative;
+    width:100% ;
 }
 
+canvas{
+    width: 100%;
+}
 .canvas-images {
     position: absolute;
     top: 0;
@@ -422,6 +489,8 @@
     position: fixed;
     top: 0;
     left: 0;
+    right:0;
+    bottom: 0;
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.4);
@@ -434,7 +503,7 @@
 
 .spin-popup-container {
     position: absolute;
-    top: 20%;
+    /*top: 20%;*/
     width: 50%;
     background: linear-gradient(135deg, #f3e5ab, #f6d365);
     border-radius: 12px;
@@ -456,7 +525,7 @@
     background: linear-gradient(135deg, #f3e5ab, #f3c842);
     border: 1px solid rgba(0, 0, 0, 0.13);
     border-radius: 5px;
-    padding: 5px 10px;
+    /*padding: 5px 10px;*/
     font-weight: 700;
     font-size: 17px;
     text-transform: uppercase
@@ -499,18 +568,22 @@
 }
 
 @media (min-width: 600px) and (max-width: 2049px) {
-    .main-spin-2-win {
-        height: 100vh;
-    }
 
-    .spin-container {
-        display: flex;
-        justify-content: center;
-        flex-direction: row;
-        background-color: #0F212E;
-        align-items: start;
-        gap: 10px;
-    }
+    /*.spin-container {*/
+    /*    display: flex;*/
+    /*    justify-content: center;*/
+    /*    flex-direction: row-reverse;*/
+    /*    background-color: #0F212E;*/
+    /*    align-items: start;*/
+    /*    gap: 10px;*/
+    /*}*/
+
+    /*.spin-container-canvas{*/
+    /*    display: flex;*/
+    /*    flex-direction: column;*/
+    /*    width: 100%;*/
+    /*    background-color: #0F212E;*/
+    /*}*/
 
     .main-spin-content {
         display: flex;
@@ -520,15 +593,82 @@
         width: 100%;
     }
 
-    .main-spi-content-2 {
-        display: flex;
-        flex-direction: column;
-        background-color: rgb(33, 55, 67);
-        padding: 10px;
-        width: 100%;
-    }
+    /*.main-spi-content-2 {*/
+    /*    display: flex;*/
+    /*    flex-direction: column;*/
+    /*    background-color: rgb(33, 55, 67);*/
+    /*    padding: 10px;*/
+    /*    width: 100%;*/
+    /*}*/
 
     .spin-multiply-cards {
         padding: 10px 0;
     }
+    .main-spin-2-win {
+        display: flex;
+        flex-direction: column;
+        background-color: #1A2C38;
+        font-family: "proxima-nova", sans-serif;
+        align-items: center;
+        height: 100vh;
+    }
+
+}
+
+.spin-loader-container {
+    font-family: "Arial", serif;
+    display: flex;
+    position: relative;
+/align-items: center;/
+justify-content: center;
+    max-width: 719px;
+    min-width: 320px;
+    height: 100vh;
+    background: rgba(203, 213, 230, 1);
+    margin: auto;
+    color: black;
+}
+.spin-icon-wrapper{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+/justify-content: center;/
+align-items: center;
+    background-color: #0d0426;
+    color: white;
+    position: relative;
+    width: 100%;
+}
+.spin-logo{
+    object-fit: contain;
+    width: 100%;
+    max-height: 70vh;
+    margin-top: 80px;
+}
+.spin-loader-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: auto;
+    margin-bottom: 40px;
+}
+.greatech-logo{
+    width: 200px;
+    height: auto;
+    object-fit: contain;
+    margin-bottom: 20px;
+}
+.spin-loader-progress{
+    width: 70%;
+    height: 8px;
+    background-color: #444;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+.spin-progress{
+    height: 100%;
+    background-color: limegreen;
+    transition: width 0.3s ease;
 }

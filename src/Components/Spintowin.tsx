@@ -1,22 +1,26 @@
-import {FC, useCallback, useEffect, useState} from 'react';
+import {useCallback, useEffect, useState} from 'react';
 import '../style.css';
 import {HowToPlay} from './howToPlay.tsx';
 import SpinCanvas from './SpinCanvas.tsx';
-import { Settings} from '../Utils/type.ts';
-import BetHistory from "./BetHistory.tsx";
+import {Settings} from '../Utils/type.ts';
+// import BetHistory from "./BetHistory.tsx";
 import {useSpinWs} from "../wsSpin/wsspin.ts";
 import {receiveSpinData, sendSpinData} from "../Utils/wssData.ts";
-import {useSpinSound} from "../Hooks/SpinUseSound.ts";
-import {SpinPopUp} from "./SpinPopUp.tsx";
+// import {SpinPopUp} from "./SpinPopUp.tsx";
 import {SpinBetControls} from "./BetControls.tsx";
 import {MultiplierCards} from "./MultiplierCards.tsx";
+import closeIcon from "../assets/image/close (1).png";
+import menuIcon from "../assets/image/menu-bar-w2xGH3o5.png";
+import helpIcon from "../assets/image/help-MqG1XedK.png";
+import UnmuteIcon from "../assets/image/unmute-COvvfrUR.png";
+import muteIcon from "../assets/image/mute-BE9m29EQ.png";
+import spinlogo from "../assets/image/logo.png";
+import {useNewSpinAudio} from "../Hooks/useNewSpinAudio.ts";
 
-
-export const SpinToWin: FC = () => {
-    const {playSound} = useSpinSound(false, true);
+export const SpinToWin = () => {
     const [spinState, setSpinState] = useState<number | null>(0);
     const [isSpinning, setIsSpinning] = useState<boolean>(false);
-    const [balance, setBalance] = useState<number>(1000);
+    const [balance, setBalance] = useState<number>(0);
     const [betAmount, setBetAmount] = useState<number>(1);
     const [numSegments, setNumSegments] = useState<number>(20);
     const [riskLevel, setRiskLevel] = useState<string>('medium');
@@ -24,39 +28,40 @@ export const SpinToWin: FC = () => {
     const [winningMultiplier, setWinningMultiplier] = useState<number | null>(null);
     const {connectSocketSpin, sendDataSpin, getSocketSpin} = useSpinWs();
     const [spinResult, setSpinResult] = useState<receiveSpinData | null>(null);
+
     const [settings, setSettings] = useState<Settings>({
+        isMuted: false,
         showDropdown: false,
         showHelpOverlay: false,
         betAmount: 20
     });
     const [isPopupVisible, setIsPopupVisible] = useState(false);
+    const {playSpinSound, playSpinLoop} = useNewSpinAudio(settings.isMuted, true)
 
-    useEffect(() => {
-        connectSocketSpin();
-    }, [connectSocketSpin]);
-
+//add toast /insufficient balance
     const handleSpinReceivedData = useCallback(
         (spinResult: receiveSpinData) => {
             setSpinResult(spinResult);
-            setBalance(parseFloat(spinResult.balance));
+            setBalance(parseFloat(spinResult.Balance));
             setWinningKey(spinResult.randomkey);
             // console.log("Updated Winning Key:", spinResult.random key);
             setTimeout(() => {
                 setIsSpinning(false);
                 const winnings = spinResult.winnings;
                 if (winnings > 0) {
-                    playSound("win");
+                    playSpinSound("WinSnd");
                 } else {
-                    playSound("lost");
+                    playSpinSound("LoseSnd");
                 }
                 setIsPopupVisible(true);
 
             }, 5000);
 
-        },
-        [playSound]
-    );
+        }, [playSpinSound]);
+
     useEffect(() => {
+        connectSocketSpin();
+
         const socket = getSocketSpin();
         if (socket) {
             socket.onmessage = (event: { data: string }) => {
@@ -77,13 +82,11 @@ export const SpinToWin: FC = () => {
         return () => {
             if (socket) socket.onmessage = null;
         };
-    }, [getSocketSpin, handleSpinReceivedData]);
+    }, [connectSocketSpin, getSocketSpin, handleSpinReceivedData]);
 
     useEffect(() => {
         if (spinResult) {
-            // console.log("backend random key", spinResult.random key)
             setWinningKey(spinResult.randomkey);
-
             setTimeout(() => {
                 setWinningMultiplier(spinResult.multiplier);
             }, 5000)
@@ -97,44 +100,36 @@ export const SpinToWin: FC = () => {
                 const finalAngle = (-90 + point) - segmentStartAngle + spinRotations * 360;
                 setSpinState(finalAngle);
             }
-
         }
     }, [numSegments, spinResult, winningKey]);
 
-
-    const toggleSetting = (key: keyof Settings) => {
-        setSettings(prev => ({...prev, [key]: !prev[key]}));
-    };
-
-
-
     const handleSpin = useCallback(() => {
-        if (isSpinning) {
-            alert("The wheel is already spinning!");
-            return;
-        }
-
-        if (betAmount <= 0) {
-            alert("Please enter a valid bet amount!");
-            return;
-        }
-
-        if (betAmount > balance) {
-            alert("Insufficient balance!");
-            return;
-        }
         setIsSpinning(true);
-        playSound("bet");
-        playSound("spinning");
-
+        const queryParams = new URLSearchParams(window.location.search);
+        const sess = queryParams.get("sess") || " ";
         const spinSendData: sendSpinData = {
-            msisdn: "",
+            msisdn: sess,
             amount: betAmount,
             level: riskLevel,
         };
-
         sendDataSpin(spinSendData);
-    }, [betAmount, balance, isSpinning, riskLevel, sendDataSpin, playSound]);
+        playSpinSound("BetSnd");
+
+        if (isSpinning) {
+            playSpinLoop();
+            alert("The wheel is already spinning!");
+            return;
+        }
+        // else if (betAmount <= 0) {
+        //     alert("Please enter a valid bet amount!");
+        //     return;
+        // } else if (betAmount > balance) {
+        //     alert("Insufficient balance!");
+        //     return;
+        // }
+
+
+    }, [isSpinning, betAmount, balance, playSpinLoop, playSpinSound, riskLevel, sendDataSpin]);
 
     const handleRiskLevelChange = (level: string) => {
         if (isSpinning) return;
@@ -154,10 +149,6 @@ export const SpinToWin: FC = () => {
         setRiskLevel(level);
     };
 
-    const handleClosePopup = () => {
-        setIsPopupVisible(false);
-    };
-
     useEffect(() => {
         if (isPopupVisible) {
             const timer = setTimeout(() => {
@@ -172,22 +163,59 @@ export const SpinToWin: FC = () => {
     }, [isPopupVisible]);
 
     return (
-        <div className="main-spin-2-win bg-spin">
-            <div className="spin-container">
-                <div className="main-spi-content-2">
-                    <SpinBetControls
-                        spinBetAmount={betAmount}
-                        SpinBalance={balance}
-                        HandleLevelChange={handleRiskLevelChange}
-                        HandleSpinClick={handleSpin}
-                        riskLevel={riskLevel}
-                        isSpinning={isSpinning}
-                        onChangeSpinBetAmount={setBetAmount}
+        <div className="main-spin-2-win">
+            <div className="main-spin-2-win-cont">
+                <div className="spin-classic-header">
+                    <img
+                        className="header-icon"
+                        src={settings.showDropdown ? closeIcon : menuIcon}
+                        alt={settings.showDropdown ? 'Close Menu' : 'Open Menu'}
+                        onClick={() => setSettings(prev => ({
+                            ...prev,
+                            showDropdown: !prev.showDropdown
+                        }))
+                        }
                     />
-                    <BetHistory/>
-                </div>
+                    <img
+                        className="header-logo"
+                        src={spinlogo}
+                        alt="Back"
+                    />
+                    <div className="user-balance">
+                        {balance > 0 ? balance:"---"}
+                    </div>
 
-                <div className="  ">
+                </div>
+                {settings.showDropdown && (
+                    <div className="menu-content-container-overlay">
+                        <img
+                            className="help-classic"
+                            src={helpIcon} alt="Help"
+                            onClick={() =>
+                                setSettings(prev => ({
+                                    ...prev,
+                                    showHelpOverlay: true
+                                }))
+                            }
+
+                        />
+
+                        <img
+                            className="help-classic"
+                            src={settings.isMuted ? muteIcon : UnmuteIcon}
+                            alt="Sound"
+                            onClick={() =>
+                                setSettings(prev => ({
+                                    ...prev,
+                                    isMuted: !prev.isMuted
+                                }))
+                            }
+
+                        />
+                    </div>
+                )}
+
+                <div className="spin-container-canvas">
                     <SpinCanvas
                         riskLevel={riskLevel}
                         spinState={spinState}
@@ -201,17 +229,35 @@ export const SpinToWin: FC = () => {
                         isSpinning={isSpinning}
                     />
                 </div>
+                <div className="main-spi-content-2">
+                    <SpinBetControls
+                        spinBetAmount={betAmount}
+                        SpinBalance={balance}
+                        HandleLevelChange={handleRiskLevelChange}
+                        HandleSpinClick={handleSpin}
+                        riskLevel={riskLevel}
+                        isSpinning={isSpinning}
+                        onChangeSpinBetAmount={setBetAmount}
+                    />
+                    {/*<BetHistory/>*/}
+                </div>
+
+                {/*{isPopupVisible && (*/}
+                {/*    <SpinPopUp winningMultiplier={winningMultiplier}*/}
+                {/*               betAmount={betAmount}*/}
+                {/*               OnClosePopup={handleClosePopup}/>*/}
+                {/*)}*/}
+
+                {settings.showHelpOverlay && (
+                    <HowToPlay onClose={() => setSettings(prev => ({
+                            ...prev,
+                            showHelpOverlay: false
+                        })
+                    )
+                    }/>
+                )}
             </div>
 
-            {isPopupVisible && (
-                <SpinPopUp winningMultiplier={winningMultiplier}
-                           betAmount={betAmount}
-                           OnClosePopup={handleClosePopup}/>
-            )}
-
-            {settings.showHelpOverlay && (
-                <HowToPlay onClose={() => toggleSetting('showHelpOverlay')}/>
-            )}
         </div>
 
     );

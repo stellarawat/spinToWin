@@ -9,6 +9,7 @@ interface SpinCanvasProps {
     winningKey: number | null;
     numSegments: number;
 }
+
 const SpinCanvas: FC<SpinCanvasProps> = ({numSegments, riskLevel, spinState, winningKey}) => {
     const wheelCanvasRef = useRef<HTMLCanvasElement | null>(null);
     const centerCanvasRef = useRef<HTMLCanvasElement | null>(null);
@@ -72,6 +73,20 @@ const SpinCanvas: FC<SpinCanvasProps> = ({numSegments, riskLevel, spinState, win
     }, [wheelData, segmentAngle, center, radius, numSegments, winningKey]);
 
     useEffect(() => {
+        const canvas = centerCanvasRef.current;
+        const ctx = canvas?.getContext('2d');
+        if (!ctx) return;
+
+        const image = new Image();
+        image.src = centerImg;
+        image.onload = () => {
+            ctx.clearRect(0, 0, canvasSize, canvasSize);
+            const imageSize = radius * 0.9;
+            ctx.drawImage(image, center - imageSize / 2, center - imageSize / 2, imageSize, imageSize);
+        };
+    }, [center, radius]);
+
+    useEffect(() => {
         const canvas = pointerCanvasRef.current;
         const ctx = canvas?.getContext('2d');
         if (!ctx) return;
@@ -91,20 +106,6 @@ const SpinCanvas: FC<SpinCanvasProps> = ({numSegments, riskLevel, spinState, win
         };
     }, [canvasSize, center]);
 
-    useEffect(() => {
-        const canvas = centerCanvasRef.current;
-        const ctx = canvas?.getContext('2d');
-        if (!ctx) return;
-
-        const image = new Image();
-        image.src = centerImg;
-        image.onload = () => {
-            ctx.clearRect(0, 0, canvasSize, canvasSize);
-            const imageSize = radius * 0.9;
-            ctx.drawImage(image, center - imageSize / 2, center - imageSize / 2, imageSize, imageSize);
-        };
-    }, [center, radius]);
-
     return (
         <div className='spin-canvas' style={{position: 'relative'}}>
             <canvas
@@ -117,24 +118,14 @@ const SpinCanvas: FC<SpinCanvasProps> = ({numSegments, riskLevel, spinState, win
                 }}
             />
             <canvas
+                className="canvas-images"
                 ref={centerCanvasRef}
                 height={canvasSize}
-                style={{
-                    position: 'absolute',
-                    top: 0,
-                    left:63,
-                    pointerEvents: 'none',
-                }}
             />
             <canvas
+                className="canvas-images"
                 ref={pointerCanvasRef}
                 height={canvasSize}
-                style={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 63,
-                    pointerEvents: 'none',
-                }}
             />
         </div>
     );

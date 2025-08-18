@@ -3,18 +3,27 @@ import {riskLevels} from "../Lib/constrains.ts";
 
 interface SpinBetProps {
     // onUpdateBetAmount: (betAmount: number) => void;
-    spinBetAmount:number;
+    spinBetAmount: number;
     SpinBalance: number;
     onChangeSpinBetAmount: Dispatch<SetStateAction<number>>;
     HandleLevelChange: (level: string) => void;
-    HandleSpinClick:()=>void;
-    riskLevel:string;
-    isSpinning:boolean;
+    HandleSpinClick: () => void;
+    riskLevel: string;
+    isSpinning: boolean;
 
 
 }
-export const SpinBetControls:FC <SpinBetProps> = ({ SpinBalance,spinBetAmount,onChangeSpinBetAmount,HandleLevelChange,HandleSpinClick,isSpinning,riskLevel}) => {
-    const [spinActiveBet,setSpinActiveBet]=useState<string>()
+
+export const SpinBetControls: FC<SpinBetProps> = ({
+                                                      SpinBalance,
+                                                      spinBetAmount,
+                                                      onChangeSpinBetAmount,
+                                                      HandleLevelChange,
+                                                      HandleSpinClick,
+                                                      isSpinning,
+                                                      riskLevel
+                                                  }) => {
+    const [spinActiveBet, setSpinActiveBet] = useState<string>()
     const handleBetAmountChange = (amount: number) => {
         if (amount < 1) return;
         if (amount > SpinBalance) return;
@@ -23,7 +32,7 @@ export const SpinBetControls:FC <SpinBetProps> = ({ SpinBalance,spinBetAmount,on
         setSpinActiveBet(String(amount));
     };
 
-    return(
+    return (
         <>
             <div className='spin-bet-amount-title'> Bet Amount</div>
             <div className='spin-bet-amount-area'>
@@ -39,8 +48,8 @@ export const SpinBetControls:FC <SpinBetProps> = ({ SpinBalance,spinBetAmount,on
                     ))}
                 </div>
                 <div className='spin-plus-minus-input-container'>
-                    <div     className='spin-plus-minus'
-                             onClick={() => handleBetAmountChange(Math.max(spinBetAmount - 1, 0))}
+                    <div className='spin-plus-minus'
+                         onClick={() => handleBetAmountChange(Math.max(spinBetAmount - 1, 0))}
                     >
                         -
                     </div>
@@ -51,14 +60,13 @@ export const SpinBetControls:FC <SpinBetProps> = ({ SpinBalance,spinBetAmount,on
                            onChange={(e) => handleBetAmountChange(parseInt(e.target.value, 10) || 0)}
                     />
 
-                    <div     className='spin-plus-minus'
-                             onClick={() => handleBetAmountChange(spinBetAmount + 1)}
+                    <div className='spin-plus-minus'
+                         onClick={() => handleBetAmountChange(spinBetAmount + 1)}
                     >
                         +
                     </div>
                 </div>
             </div>
-
 
             <div
                 className={`spin-button ${isSpinning ? 'disabled' : ''}`}

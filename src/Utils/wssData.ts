@@ -11,5 +11,5 @@ export type receiveSpinData = {
     multiplier: number,
     color: string,
     winnings: number,
-    balance: string,
+    Balance: string,
 }

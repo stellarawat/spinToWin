@@ -1,23 +1,21 @@
 import {FC} from "react";
 
-interface SpinPopUpProps{
+interface SpinPopUpProps {
     winningMultiplier: number | null;
     betAmount: number;
     OnClosePopup: () => void;
 
 }
-export const SpinPopUp: FC<SpinPopUpProps>=({winningMultiplier, betAmount, OnClosePopup})=> {
+
+export const SpinPopUp: FC<SpinPopUpProps> = ({winningMultiplier, betAmount, OnClosePopup}) => {
     return (
         <>
             <div className="spin-popup-backdrop" onClick={OnClosePopup}>
 
-            <div className="spin-popup-container">
+                <div className="spin-popup-container">
                     {winningMultiplier !== null ? (
-                        <div className="spin-popup-container-content"
-
-                        >
-                            <span className="spin-popup-message"
-                                  style={{
+                        <div className="spin-popup-container-content">
+                            <span className="spin-popup-message" style={{
                                 color: winningMultiplier > 0 ? "green" : "rgb(210, 43, 43)",
                             }}>
                                 {winningMultiplier > 0 ? "You Won" : "You Lost"}
@@ -29,7 +27,7 @@ export const SpinPopUp: FC<SpinPopUpProps>=({winningMultiplier, betAmount, OnClo
                                 <span>
                                         Multiplier
                                 </span>
-                            <span>
+                                <span>
                                 {winningMultiplier}X
 
                             </span>
@@ -39,7 +37,7 @@ export const SpinPopUp: FC<SpinPopUpProps>=({winningMultiplier, betAmount, OnClo
                     ) : (
                         <p>Invalid calculation data.</p>
                     )}
-            </div>
+                </div>
             </div>
         </>
     )

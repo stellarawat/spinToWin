@@ -10,8 +10,9 @@ export type Settings = {
     showDropdown: boolean;
     showHelpOverlay: boolean;
     betAmount: number;
-    [key: string]: boolean | number;
+    isMuted: boolean ;
 };
+
  export const colorOccurrences = [
     { id: 1, color: 'red', positions: [1, 3, 7, 11, 14], multiplier: 0.00 },
     { id: 2, color: 'blue', positions: [5, 8, 17, 20], multiplier: 0.50 },
@@ -32,7 +33,7 @@ export const colorOccurrencesLow: ColorOccurrence[] = [
 ];
 
 export const getAdjustedColorOccurrences = (
-    riskLevel: string,
+    riskLevel: string
     // numSegments: number
 ): ColorOccurrence[] => {
     const riskLevelColorMap: { [key: string]: string[] } = {

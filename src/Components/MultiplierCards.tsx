@@ -1,4 +1,4 @@
-import { FC } from "react";
+import {FC} from "react";
 import {colorOccurrences, colorOccurrencesHigh, colorOccurrencesLow} from "../Utils/type.ts";
 
 interface MultiplierCardsProps {
@@ -8,10 +8,10 @@ interface MultiplierCardsProps {
 }
 
 export const MultiplierCards: FC<MultiplierCardsProps> = ({
-                                                       riskLevel,
-                                                       winningMultiplier,
-                                                       isSpinning,
-                                                   }) => {
+                                                              riskLevel,
+                                                              winningMultiplier,
+                                                              isSpinning,
+                                                          }) => {
     const riskLevelColorMap: { [key: string]: string[] } = {
         low: ['red', 'blue', 'green'],
         medium: ['red', 'blue', 'green', 'indigo', 'DarkMagenta', 'DodgerBlue', 'orange'],
