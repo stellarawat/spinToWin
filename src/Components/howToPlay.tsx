@@ -9,15 +9,18 @@ export const HowToPlay: FC<HowToPlayProp> = ({ onClose}) => {
 
 
     return (
-        <div className="how-to-play">
-            <img
-                style={{width: "26px"}}
-                src={CloseImage}
-                onClick={onClose}
-                alt="Close"
-            />
+        <div className="how-to-play-spin">
+            {/* Header */}
+            <div className="how-to-play-header-title">
+                <span>How To Play Spin 2 Win</span>
+                <img
+                    style={{ width: "26px", cursor: "pointer", marginLeft: "auto" }}
+                    src={CloseImage}
+                    onClick={onClose}
+                    alt="Close"
+                />
+            </div>
             <div className="how-to-play-content">
-                <h1>How to Play Spin 2 Win</h1>
                 <ol>
                     <li>
                         <strong>Ensure Sufficient Funds:</strong> Before spinning the wheel, make sure you have enough

@@ -35,12 +35,14 @@
 .header-logo{
     width: auto;
     height: 40px;
+    transform: translateX(10%);
 }
 
 .header-icon {
     width: 24px;
     height: 24px;
     cursor: pointer;
+    transform: translateX(30%);
 }
 
 .user-balance{
@@ -54,16 +56,17 @@
     font-weight: 800;
     cursor: pointer;
     white-space: nowrap;
+    transform: translateX(20%);
 }
 
 .help-classic {
     width: 26px;
-
+    cursor: pointer;
 }
 
 .menu-content-container-overlay{
     position: absolute;
-    top:3%;
+    top:5%;
     background: transparent;
     color: white;
     border-radius: 10px;
@@ -73,8 +76,6 @@
     padding: 0;
     z-index: 1;
     gap:5px;
-
-
 }
 
 .main-spi-content-2 {

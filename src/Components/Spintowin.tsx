@@ -6,7 +6,7 @@ import {Settings} from '../Utils/type.ts';
 // import BetHistory from "./BetHistory.tsx";
 import {useSpinWs} from "../wsSpin/wsspin.ts";
 import {receiveSpinData, sendSpinData} from "../Utils/wssData.ts";
-// import {SpinPopUp} from "./SpinPopUp.tsx";
+import {SpinPopUp} from "./SpinPopUp.tsx";
 import {SpinBetControls} from "./BetControls.tsx";
 import {MultiplierCards} from "./MultiplierCards.tsx";
 import closeIcon from "../assets/image/close (1).png";
@@ -148,6 +148,9 @@ export const SpinToWin = () => {
 
         setRiskLevel(level);
     };
+    const handleClosePopup = () => {
+        setIsPopupVisible(false);
+    };
 
     useEffect(() => {
         if (isPopupVisible) {
@@ -242,11 +245,11 @@ export const SpinToWin = () => {
                     {/*<BetHistory/>*/}
                 </div>
 
-                {/*{isPopupVisible && (*/}
-                {/*    <SpinPopUp winningMultiplier={winningMultiplier}*/}
-                {/*               betAmount={betAmount}*/}
-                {/*               OnClosePopup={handleClosePopup}/>*/}
-                {/*)}*/}
+                {isPopupVisible && (
+                    <SpinPopUp winningMultiplier={winningMultiplier}
+                               betAmount={betAmount}
+                               OnClosePopup={handleClosePopup}/>
+                )}
 
                 {settings.showHelpOverlay && (
                     <HowToPlay onClose={() => setSettings(prev => ({

@@ -23,7 +23,7 @@ export const SpinPopUp: FC<SpinPopUpProps> = ({winningMultiplier, betAmount, OnC
                             <span className="spin-popup-header">
                               {(betAmount * winningMultiplier).toFixed(2)}ksh
                             </span>
-                            <div className="spin-Mult=iplier">
+                            <div className="spin-Multiplier">
                                 <span>
                                         Multiplier
                                 </span>
