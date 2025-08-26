@@ -10,9 +10,8 @@ export const HowToPlay: FC<HowToPlayProp> = ({onClose}) => {
 
     return (
             <div className="how-to-play-spin">
-                {/* Header */}        <div className="how-to-play-spin-main">
-
-
+                {/* Header */}
+                <div className="how-to-play-spin-main">
                 <div className="how-to-play-header-title">
 
                     <span>How To Play Spin 2 Win</span>
