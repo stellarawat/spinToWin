@@ -7,24 +7,24 @@
     width: 100%;
 }
 
-.main-spin-2-win-cont{
+.main-spin-2-win-cont {
     display: flex;
     flex-direction: column;
 }
 
-.spin-container {
-   display: flex;
-    flex-direction: column;
-    border: 1px solid #efbf00;
-}
+/*.spin-container {*/
+/*   display: flex;*/
+/*    flex-direction: column;*/
+/*    border: 1px solid #efbf00;*/
+/*}*/
 
-.spin-container-canvas{
+.spin-container-canvas {
     display: flex;
     flex-direction: column;
     background-color: #0F212E;
 }
 
-.spin-classic-header{
+.spin-classic-header {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -32,7 +32,7 @@
     width: 100%;
 }
 
-.header-logo{
+.header-logo {
     width: auto;
     height: 40px;
     transform: translateX(10%);
@@ -45,7 +45,7 @@
     transform: translateX(30%);
 }
 
-.user-balance{
+.user-balance {
     border-radius: 8px;
     color: white;
     /*padding: 6px;*/
@@ -64,9 +64,9 @@
     cursor: pointer;
 }
 
-.menu-content-container-overlay{
+.menu-content-container-overlay {
     position: absolute;
-    top:5%;
+    top: 5%;
     background: transparent;
     color: white;
     border-radius: 10px;
@@ -75,7 +75,7 @@
     transform: none;
     padding: 0;
     z-index: 1;
-    gap:5px;
+    gap: 5px;
 }
 
 .main-spi-content-2 {
@@ -330,18 +330,28 @@
     margin-bottom: 10px;
 }
 
-.spin-canvas {
+.spin-canvas-main {
     display: flex;
-    /*align-items: center;*/
-    /*justify-content: center;*/
+    align-items: center;
+    justify-content: center;
     flex-direction: column;
     position: relative;
-    width:100% ;
+    width: 100%;
+    max-width: 1000px;
 }
 
-canvas{
+.spin-canvas {
+    display: flex;
+    flex-direction: column;
+    /*position: relative;*/
+    width: 100%;
+    max-width: 1000px;
+}
+
+canvas {
     width: 100%;
 }
+
 .canvas-images {
     position: absolute;
     top: 0;
@@ -447,24 +457,61 @@ canvas{
 
 .how-to-play-header-title {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    width: 100%;
     align-items: center;
     font-weight: bold;
     font-size: xx-large;
     border-bottom-right-radius: .5rem;
     border-bottom-left-radius: .5rem;
     border-bottom: 1px solid #dad6d6;
+    margin: 10px 0;
+    position: fixed;
+    background-color: #000000;
+    max-width: 1000px;
 }
+
+.how-to-play-header-title-close{
+    display: flex;
+    /*justify-content: center;*/
+    /*align-items: center;*/
+    font-weight: bold;
+    /*font-size: xx-large;*/
+    /*border-bottom-right-radius: .5rem;*/
+    /*border-bottom-left-radius: .5rem;*/
+    /*border-bottom: 1px solid #dad6d6;*/
+
+    align-items: center;
+    border:1px solid white;
+}
+
 
 .how-to-play-spin {
     position: absolute;
-    top: 0;
+    color: white;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* content starts at top */
+    align-items: center;
+    /*background-color: rgba(0, 0, 0, 1);*/
+    top:0;
+    bottom: 0;
     left: 0;
     right: 0;
-    bottom: 0;
-    color: white;
+
+}
+
+.how-to-play-spin-main {
+
     background-color: rgba(0, 0, 0, 1);
-    z-index: 2;
+    overflow-y: auto;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */    max-height: 90vh;
+    max-width: 1000px;
+
+
 }
 
 .how-to-play-content {
@@ -490,7 +537,7 @@ canvas{
     position: fixed;
     top: 0;
     left: 0;
-    right:0;
+    right: 0;
     bottom: 0;
     width: 100%;
     height: 100%;
@@ -505,7 +552,8 @@ canvas{
 .spin-popup-container {
     position: absolute;
     /*top: 20%;*/
-    width: 50%;
+    width: 40%;
+    max-width: 1000px;
     background: linear-gradient(135deg, #f3e5ab, #f6d365);
     border-radius: 12px;
     padding: 10px;
@@ -578,21 +626,19 @@ canvas{
     /*    align-items: start;*/
     /*    gap: 10px;*/
     /*}*/
-
     /*.spin-container-canvas{*/
     /*    display: flex;*/
     /*    flex-direction: column;*/
     /*    width: 100%;*/
     /*    background-color: #0F212E;*/
     /*}*/
-
-    .main-spin-content {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-    }
+    /*.main-spin-content {*/
+    /*    display: flex;*/
+    /*    flex-direction: column;*/
+    /*    justify-content: center;*/
+    /*    align-items: center;*/
+    /*    width: 100%;*/
+    /*}*/
 
     /*.main-spi-content-2 {*/
     /*    display: flex;*/
@@ -601,10 +647,10 @@ canvas{
     /*    padding: 10px;*/
     /*    width: 100%;*/
     /*}*/
-
     .spin-multiply-cards {
         padding: 10px 0;
     }
+
     .main-spin-2-win {
         display: flex;
         flex-direction: column;
@@ -620,8 +666,8 @@ canvas{
     font-family: "Arial", serif;
     display: flex;
     position: relative;
-/align-items: center;/
-justify-content: center;
+/ align-items: center;
+/ justify-content: center;
     max-width: 719px;
     min-width: 320px;
     height: 100vh;
@@ -629,24 +675,27 @@ justify-content: center;
     margin: auto;
     color: black;
 }
-.spin-icon-wrapper{
+
+.spin-icon-wrapper {
     height: 100vh;
     display: flex;
     flex-direction: column;
-/justify-content: center;/
-align-items: center;
+/ justify-content: center;
+/ align-items: center;
     background-color: #0d0426;
     color: white;
     position: relative;
     width: 100%;
 }
-.spin-logo{
+
+.spin-logo {
     object-fit: contain;
     width: 100%;
     max-height: 70vh;
     margin-top: 80px;
 }
-.spin-loader-content{
+
+.spin-loader-content {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -654,13 +703,15 @@ align-items: center;
     margin-top: auto;
     margin-bottom: 40px;
 }
-.greatech-logo{
+
+.greatech-logo {
     width: 200px;
     height: auto;
     object-fit: contain;
     margin-bottom: 20px;
 }
-.spin-loader-progress{
+
+.spin-loader-progress {
     width: 70%;
     height: 8px;
     background-color: #444;
@@ -668,7 +719,8 @@ align-items: center;
     overflow: hidden;
     margin-bottom: 10px;
 }
-.spin-progress{
+
+.spin-progress {
     height: 100%;
     background-color: limegreen;
     transition: width 0.3s ease;

@@ -108,6 +108,7 @@ const SpinCanvas: FC<SpinCanvasProps> = ({numSegments, riskLevel, spinState, win
 
     return (
         <div className='spin-canvas' style={{position: 'relative'}}>
+
             <canvas
                 ref={wheelCanvasRef}
                 width={canvasSize}
