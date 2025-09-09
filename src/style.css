@@ -455,21 +455,7 @@ canvas {
     right: 5px;
 }
 
-.how-to-play-header-title {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    align-items: center;
-    font-weight: bold;
-    font-size: xx-large;
-    border-bottom-right-radius: .5rem;
-    border-bottom-left-radius: .5rem;
-    border-bottom: 1px solid #dad6d6;
-    margin: 10px 0;
-    position: fixed;
-    background-color: #000000;
-    max-width: 1000px;
-}
+
 
 .how-to-play-header-title-close{
     display: flex;
@@ -510,8 +496,21 @@ canvas {
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE/Edge */    max-height: 90vh;
     max-width: 1000px;
-
-
+}
+.how-to-play-header-title {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+    font-weight: bold;
+    font-size: xx-large;
+    border-bottom-right-radius: .5rem;
+    border-bottom-left-radius: .5rem;
+    border-bottom: 1px solid #dad6d6;
+    margin: 10px 0;
+    position: fixed;
+    background-color: #000000;
+    max-width: 1000px;
 }
 
 .how-to-play-content {
@@ -574,9 +573,8 @@ canvas {
     background: linear-gradient(135deg, #f3e5ab, #f3c842);
     border: 1px solid rgba(0, 0, 0, 0.13);
     border-radius: 5px;
-    /*padding: 5px 10px;*/
     font-weight: 700;
-    font-size: 17px;
+    font-size: 16px;
     text-transform: uppercase
 }
 
